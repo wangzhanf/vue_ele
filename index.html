@@ -22,15 +22,11 @@
     ></script>
     <![endif]-->
 </head>
-
-
-
 <body>
 <div id="app">
     <transition enter-active-class="animated fadeIn">
         <router-view></router-view>
     </transition>
-
 </div>
 <!--首页模板-->
 <template id="indexTemp">
@@ -68,21 +64,34 @@
         <!--        如果是多层组件的封装方式,可以使用$root调用根组件数据-->
         <router-link to="/merchantlist"
                      v-for="(item,index) in $root.foodCategory"
-                     :key="index" class="col-6 col-sm-4 col-md-3 col-lg-2 text-center">
-            <img v-bind:src="item.imgSrc"/>{{item.categoryName}}
+                     :key="index" class="col-5 col-sm-3 col-md-4 col-lg-2 text-center"
+                    v-bind:class="{'offset-1': !(index%offset)}">
+            {{offset}}<img v-bind:src="item.imgSrc" />
+            {{item.categoryName}}
         </router-link>
     </div>
 </template>
 <!--推荐商户模板-->
 <template id="recommendMerchantTemp">
-    <div class="recommendMerchantTemp">
-        <router-link to="/merchantInfo"
-                     v-for="(item,index) in $root.recommendMerchant"
-                     :key="index" class="col-12 text-center">
-            <img v-bind:src="item.imgSrc"/>
-            {{item.name}}
-            <span v-for="i in item.star">*</span>
-        </router-link>
+    <div class="container-fluid lists">
+        <div v-for="(item,index) in $root.recommendMerchant" class="row  text-muted">
+            <div class="col-12 col-sm-2">
+                <img v-bind:src="item.imgSrc" :alt="item.name"/>
+            </div>
+            <div class="col-8 col-sm-6">
+                <h3 class="font-weight-bolder text-dark">{{item.name}}</h3>
+                <p><i v-for="i in item.star" class="fa fa-star text-warning"></i> 4.9 月售345单</p>
+                <p>各种饺子</p>
+                <p><span>新</span>新用户xxxxxx</p>
+                <p><span>特</span>特价用户</p>
+            </div>
+            <div class="col-4 col-sm-4">
+                <p>.</p>
+                <p><span>美团外卖</span></p>
+                <p>3.22km | 30分钟</p>
+                <p><i class="fa fa-arrow-circle-down"></i></p>
+            </div>
+        </div>
     </div>
 </template>
 <!--商户列表模板-->
@@ -97,8 +106,6 @@
         <gotopcpn></gotopcpn>
         <!--  主导航条-->
         <mainnavcpn></mainnavcpn>
-        <!-- 临时测试用的长条区块 -->
-        <div style="height: 2000px; background-color: rgb(223, 121, 126)"></div>
     </div>
 </template>
 
@@ -114,8 +121,6 @@
         <gotopcpn></gotopcpn>
         <!--  主导航条-->
         <mainnavcpn></mainnavcpn>
-        <!-- 临时测试用的长条区块 -->
-        <div style="height: 2000px; background-color: rgb(223, 221, 126)"></div>
     </div>
 </template>
 
@@ -214,6 +219,23 @@
     });
     let foodCategoryCpn = Vue.extend({
         template: "#foodCategoryTemp",
+        data:function(){
+            return {
+                offset : 6
+            };
+        },
+        methods:{
+            getWidth:function(){
+                let w = $(window).width();
+                if(w<540) this.offset=2;
+                if(w<720) this.offset=3;
+                if(w<960) this.offset=4;
+                if(w<1140) this.offset=5;
+            }
+        },
+        mounted:function(){
+            window.addEventListener("resize",this.getWidth);
+        }
     });
     let recommendMerchantCpn = Vue.extend({
         template: "#recommendMerchantTemp",

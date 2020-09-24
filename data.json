@@ -9,7 +9,9 @@
     {"imgSrc":"img/dcfl07.png","categoryName": "美食7"},
     {"imgSrc":"img/dcfl08.png","categoryName": "美食8"},
     {"imgSrc":"img/dcfl09.png","categoryName": "美食9"},
-    {"imgSrc":"img/dcfl10.png","categoryName": "美食10"}
+    {"imgSrc":"img/dcfl09.png","categoryName": "美食10"},
+    {"imgSrc":"img/dcfl09.png","categoryName": "美食11"},
+    {"imgSrc":"img/dcfl10.png","categoryName": "美食12"}
   ],
   "advertising": {"title": "品质套餐","description": "搭配齐全吃得好","href": "#/暂时留空",
     "bgImgSrc": "img/index_banner.png"
